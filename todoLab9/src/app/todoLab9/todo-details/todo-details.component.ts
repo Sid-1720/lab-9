@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { TodoEntry } from '../todo';
-import { ListDataService } from '../todo-data.service';
+import { TodoEntry } from '../../todo-entry';
+import { ListDataService } from '../list-data.service';
 import { MatTableDataSource } from '@angular/material/table';
+
 
 @Component({
   selector: 'app-todo-details',
@@ -16,7 +17,7 @@ export class TodoDetailsComponent implements OnInit {
   col_headers = ['ID', 'Name', 'Date', 'Description', 'Delete'];
   
   constructor(
-    private liService: ListDataService // inject service
+    private liService: ListDataService, // inject service
   ) {}
 
   ngOnDestroy(): void {
@@ -24,11 +25,13 @@ export class TodoDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("sadad")
     this.subscription = this.liService.get().subscribe(msg => {
       this.todo_list = msg;
       this.table_data_source.data = this.todo_list;
     });
     this.table_data_source = new MatTableDataSource<TodoEntry>(this.todo_list);
+    this.liService.forceReload()
   }
 
   public delete_todo(i: number): void {

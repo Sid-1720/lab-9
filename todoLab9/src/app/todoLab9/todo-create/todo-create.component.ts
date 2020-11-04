@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ListDataService } from '../todo-data.service';
-import { TodoEntry } from '../todo';
+import { ListDataService } from '../list-data.service';
+import { TodoEntry } from '../../todo-entry';
 
 @Component({
   selector: 'app-todo-create',

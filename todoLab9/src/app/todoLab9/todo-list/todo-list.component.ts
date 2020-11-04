@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TodoEntry } from '../todo';
+import { TodoEntry } from '../../todo-entry';
 
-import { ListDataService } from '../todo-data.service'
+import { ListDataService } from '../list-data.service'
 
 @Component({
   selector: 'app-todo-list',
@@ -11,10 +11,10 @@ import { ListDataService } from '../todo-data.service'
 export class TodoListComponent implements OnInit {
 
   public subscription;
-  todo_list : TodoEntry[];
+  todo_list : TodoEntry[] = [];
   
   constructor(
-    private liService: ListDataService // inject service
+    private liService: ListDataService, // inject service
   ) {}
 
   ngOnDestroy(): void {
@@ -23,6 +23,7 @@ export class TodoListComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscription = this.liService.get().subscribe(msg => this.todo_list = msg);
+    this.liService.forceReload()
   }
 
   public delete_todo(i: number): void {
